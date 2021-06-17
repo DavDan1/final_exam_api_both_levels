@@ -8,4 +8,9 @@ class Api::ArticlesController < ApplicationController
     article = Article.find(params[:id])
     render json: { article: article }
   end
+
+  def create
+    comment = comments.create(params[:article])
+    render json: { message: 'Your comment is submitted' } if comment.persisted?
+  end
 end
