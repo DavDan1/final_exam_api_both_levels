@@ -1,8 +1,8 @@
-RSpec.describe 'POST /api/articles/:id/comment', type: :request do
+RSpec.describe 'GET /api/articles/:id/comment', type: :request do
   let(:article) {create(:article)  }
   describe 'Successfully' do
     before do
-      post "/api/articles/#{article.id}"
+      get "/api/articles/#{article.id}"
     end
 
     it 'is expected to return a 200 response' do
@@ -14,13 +14,13 @@ RSpec.describe 'POST /api/articles/:id/comment', type: :request do
   end
   describe 'unsuccessfully with no comments' do
     before do
-      post "/api/articles/#{article.id}"
+      get "/api/articles/#{article.id}"
     end
     it 'is expected to return status 200' do
-      exactly(response).to have_http_status 200
+      expect(response).to have_http_status 200
     end
     it 'is expected to return an empty array' do
-      expect(response_json['comments']).to eq []
+      expect(response_json['comment']).to eq nil
     end
   end
 end
